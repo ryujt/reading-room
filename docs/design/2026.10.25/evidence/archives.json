@@ -1,0 +1,186 @@
+{
+  "scope": "Original worker, physical files and original authenticated archive HTTP; viewer pixels tested separately",
+  "at": "2026-10-25T14:56:47.364Z",
+  "links": [
+    {
+      "id": 1,
+      "lastPreserved": "2026-10-25T14:53:36.762Z",
+      "formats": [
+        {
+          "field": "image",
+          "result": "PASS",
+          "bytes": 1058281,
+          "httpStatus": 200
+        },
+        {
+          "field": "pdf",
+          "result": "PASS",
+          "bytes": 176625,
+          "httpStatus": 200
+        },
+        {
+          "field": "readable",
+          "result": "PASS",
+          "bytes": 36834,
+          "httpStatus": 200
+        },
+        {
+          "field": "monolith",
+          "result": "PASS",
+          "bytes": 88936,
+          "httpStatus": 200
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "lastPreserved": "2026-10-25T14:53:34.679Z",
+      "formats": [
+        {
+          "field": "image",
+          "result": "PASS",
+          "bytes": 136841,
+          "httpStatus": 200
+        },
+        {
+          "field": "pdf",
+          "result": "PASS",
+          "bytes": 50917,
+          "httpStatus": 200
+        },
+        {
+          "field": "readable",
+          "result": "PASS",
+          "bytes": 5946,
+          "httpStatus": 200
+        },
+        {
+          "field": "monolith",
+          "result": "PASS",
+          "bytes": 16601,
+          "httpStatus": 200
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "lastPreserved": "2026-10-25T14:53:20.875Z",
+      "formats": [
+        {
+          "field": "image",
+          "result": "PASS",
+          "bytes": 557956,
+          "httpStatus": 200
+        },
+        {
+          "field": "pdf",
+          "result": "PASS",
+          "bytes": 67466,
+          "httpStatus": 200
+        },
+        {
+          "field": "readable",
+          "result": "PASS",
+          "bytes": 20416,
+          "httpStatus": 200
+        },
+        {
+          "field": "monolith",
+          "result": "PASS",
+          "bytes": 13466,
+          "httpStatus": 200
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "lastPreserved": "2026-10-25T14:56:47.040Z",
+      "formats": [
+        {
+          "field": "image",
+          "result": "PASS",
+          "bytes": 3179619,
+          "httpStatus": 200
+        },
+        {
+          "field": "pdf",
+          "result": "PASS",
+          "bytes": 158843,
+          "httpStatus": 200
+        },
+        {
+          "field": "readable",
+          "result": "PASS",
+          "bytes": 141507,
+          "httpStatus": 200
+        },
+        {
+          "field": "monolith",
+          "result": "PASS",
+          "bytes": 83915,
+          "httpStatus": 200
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "lastPreserved": "2026-10-25T14:53:01.668Z",
+      "formats": [
+        {
+          "field": "image",
+          "result": "PASS",
+          "bytes": 306456,
+          "httpStatus": 200
+        },
+        {
+          "field": "pdf",
+          "result": "PASS",
+          "bytes": 31772,
+          "httpStatus": 200
+        },
+        {
+          "field": "readable",
+          "result": "PASS",
+          "bytes": 9149,
+          "httpStatus": 200
+        },
+        {
+          "field": "monolith",
+          "result": "PASS",
+          "bytes": 7709,
+          "httpStatus": 200
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "lastPreserved": "2026-10-25T14:53:06.758Z",
+      "formats": [
+        {
+          "field": "image",
+          "result": "PASS",
+          "bytes": 1253777,
+          "httpStatus": 200
+        },
+        {
+          "field": "pdf",
+          "result": "PASS",
+          "bytes": 155061,
+          "httpStatus": 200
+        },
+        {
+          "field": "readable",
+          "result": "PASS",
+          "bytes": 42968,
+          "httpStatus": 200
+        },
+        {
+          "field": "monolith",
+          "result": "PASS",
+          "bytes": 65606,
+          "httpStatus": 200
+        }
+      ]
+    }
+  ]
+}

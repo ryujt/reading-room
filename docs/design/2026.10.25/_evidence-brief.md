@@ -1,7 +1,7 @@
 # 근거 브리프 — 2026.10.25 AS-IS 역추출
 
 > 이 문서는 원본을 찾는 색인이다. 요약으로 원본 검증을 대신하지 않는다.
-> **상태**: 전체 AS-IS 소스 분석 게이트 통과. 독립 Critic의 의미·범위 검토와 부모의 source·렌더 검토를 완료했다. 이 단계에는 TO-BE·프로토타입·제품 구현이 없다.
+> **상태**: 전체 AS-IS 소스 분석 게이트 통과. 독립 Critic의 의미·범위 검토와 부모의 source·렌더 검토를 완료했다. 이 상태 문장은 AS-IS 확정 시점의 판정이다. §1~9는 각 단계 당시의 조사·검토 기록이며, 실제 제품 통합의 최종 상태는 §10과 검증 문서를 참조한다.
 
 ## 1. 기준선
 
@@ -154,3 +154,22 @@ A-03은 할당하지 않았으며 기존 ID를 연속 번호로 만들려고 재
 TO-BE `f99c0447` 이후 독립 React/Vite entry와 공유 UI를 작성했다. [검토 대응표와 결정](prototype.md)에 실제 함수·R-P-1~6·CUA 관찰·화면 캡처를 연결했다. TypeScript/build, Vitest/jsdom10개, source/bundle/CSP audit를 통과했다. 최초 빌드 성공 뒤 실제 브라우저에서 발생한 React undefined는 workspace JSX automatic 변환으로 고쳤으며, 이를 R-P-4로 보존했다.
 
 독립 Critic은 상태·수명·fake 경계를 검토하고10개 테스트를 별도 실행했다. 부모는 실제1269×720 desktop과390×844 iframe에서 조작하고, 첫 행의 발견 가능성과 충돌 피드백을 개선한 뒤 디자인 gate를 수용했다. 사용자 직접 승인이 아닌 위임된 개발자 판단이다. 실제 API·DB·인증·보존은 아직 연결하지 않았으며, 이 frontend 단계 commit/push 후 검증 우선 구현으로 진행한다.
+
+## 10. 실제 계약과 제품 통합
+
+프로토타입 `eeafc4eb` 이후 새 전용 PostgreSQL과 원본 NextAuth 세션으로 실제 계약을 검증했다. `747e1835`는 개인 ReadingProgress 모델·API와 HTTP/SQL 검증 단계, `febbd8a2`는 원본 Monolith 입력 오류 수명 보정, `76af87b9`는 실제 client·Next navigation·viewer·페이지 연결 단계다. [실제 코드 지도](final/source-map.md)는 제안과 달라진 실제 함수 위치와 callback을 기록한다.
+
+| 요구·검토 | 실제 반영 | 확인·범위 |
+|---|---|---|
+| 개인 소유·권한·public 비노출·CAS·snapshot | composite key와 자기 relation select, RepeatableRead, 조건부 updateMany, P2002 후 접근 재확인 | 작성자 HTTP/SQL13개, 독립 HTTP12개(행동9+원복3), 원본 DB와 실제 세션 |
+| R-I-1 기존 저장 URL | sourceArticleURL의 http/https 정책, UI 비활성화와 이동 직전 검사 | 독립 소스 재검토 및 URL 검사 통과 |
+| worker generic EPIPE | 정확한 발생 socket은 미확정. 별도 확인한 stdin error listener 부재와 child 수명만 보정 | 실제 자식 프로세스의 조기종료/입력만닫기 재현2개, 독립 실행 통과 |
+| 실제 timeout·실패 | 15초 deadline, caller AbortSignal, 명시 PUT 재시도와 자동 POST 재시도 금지 | 실제 loopback TCP 상대 검사. UI draft guard는 CUA 별도 확인 |
+| 실제 Next history와 viewer | beforePopState 위임·known 보상·unknown 복원 후 승인, 제한된 returnTo | 실제 CUA known/unknown Back과 보존 본문·복귀 통과 |
+| 제품 수준 실제 화면 | 원본 회원·세션·원본 Link 저장·worker를 연결 | 실제 CUA 한글 저장/reload/실제HTTP경합/새링크/390px모바일 통과 |
+| 최종 내부 추적 | 실제 함수·call-site·callback·Prisma와 기존 AS-IS를 연결 | source-map13개 JobFlow/링크 검사 실패0, 동일 호출 계속 경고4를 근거와 함께 수용 |
+
+전체 web TypeScript와 production build(60개 static 페이지 생성 포함)가 통과했다. 실제 제품은 production start4721, 독립 fake prototype은4720에서 구분한다. 기본 인증 진입은 실제 전 구간 검증 후 Reading Room으로 바꿨으며 최종 새 로그인·대표 캡처는 [검증 기록](verification.md)에 연결했다. 검토는 위임된 개발자와 독립 검토자의 판단이며 사용자 직접 승인이라고 기록하지 않는다.
+
+
+최종 production 재로그인과 대표 desktop/mobile 캡처가 완료됐다. 원본 TextStyleDropdown의 중첩 button을 `659b0a66`에서 asChild로 보정한 뒤 production viewer 메뉴와 DOM 중첩0개·신규 console 오류없음·개인 상세 복귀를 실제로 확인했다. 최종 소스 의미 검토의 열린 필수 지적은0건이다. [문서 색인](../../README.md)과 [원본 대비 변경](../../original-vs-reading-room.md)에 단계별 커밋과 실제 캡처를 모았다.

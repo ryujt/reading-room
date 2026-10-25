@@ -6,7 +6,7 @@
 
 | 상위 역할 | 실제 함수와 호출·반환 | 근거 |
 |---|---|---|
-| 목록 route | `listReading`가 `verifyUser`의 actor와 `parseShelfQuery` 결과를 `listReadingLinks`로 전달하고 `{response:{items,nextCursor,counts}}`를 반환 | `apps/web/pages/api/v1/reading-links/index.ts` |
+| 목록 route | `readingLinks`가 `verifyUser`의 actor와 `parseShelfQuery` 결과를 `listReadingLinks`로 전달하고 `{response:{items,nextCursor,counts}}`를 반환 | `apps/web/pages/api/v1/reading-links/index.ts` |
 | 개별 route | `linkReading`이 `parseReadingId`와 `parseReadingInput`을 검사. GET→`getReading`, PUT→`putReading`. actor는 body에서 받지 않음 | `apps/web/pages/api/v1/links/[id]/reading.ts` |
 | 권한·개인 row 선택 | `findAccessibleLink`→`accessibleLinksWhere`/`readingLinkSelect`→`tx.link.findFirst`. owner 또는 member 조건과 자기 `readingProgress` relation을 한 조회에 사용. 없으면 404 | `apps/web/lib/api/readingPolicy.ts:4–20` |
 | 목록 snapshot | `listReadingLinks`→`prisma.$transaction(readSnapshot, RepeatableRead)`. callback의 `link.findMany`·`link.count`·`readingProgress.groupBy`가 같은 snapshot에서 실행. 31개를 읽고 30개 반환 | `apps/web/lib/api/controllers/reading.ts:23–38` |

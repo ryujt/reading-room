@@ -1,3 +1,15 @@
+# Reading Room
+
+A private reading room built on Linkwarden: save an article, keep track of Unread / Reading / Finished, and leave a one-line reflection. Personal notes stay separate from shared links.
+
+[실행 방법](docs/run-local.md) · [설계·검증 문서](docs/README.md) · [원본 대비 변경](docs/original-vs-reading-room.md)
+
+![Reading Room actual product](docs/screenshot.jpg)
+
+This fork retains Linkwarden’s AGPL-3.0 license and attribution. The original project introduction follows.
+
+---
+
 <div align="center">
   <img src="./assets/logo.png" width="100px" />
   <h1>Linkwarden</h1>

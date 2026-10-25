@@ -1,0 +1,14 @@
+{
+  "command": "corepack yarn workspace @linkwarden/worker exec tsx --test ../../examples/reading-room/transport.test.ts ../../examples/reading-room/worker-input.test.ts",
+  "passed": 5,
+  "failed": 0,
+  "scope": [
+    "actual local HTTP timeout and explicit retry",
+    "caller AbortSignal",
+    "no automatic link POST retry",
+    "viewer return policy",
+    "stored original URL policy",
+    "actual handleMonolith early child exit and stdin-only close cleanup"
+  ],
+  "independentReview": "Independent reviewer reran original four tests, then three transport/URL tests; all passed. Browser navigation is separate."
+}
