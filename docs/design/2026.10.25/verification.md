@@ -36,7 +36,7 @@ V-01~04의 실제 계약 검증은 통과했다. V-05의 브라우저 본문과 
 
 ## 실제 브라우저 관찰
 
-브라우저 검토자는 1269×720 desktop과 390×844 iframe에서 실제 계정과 이번 fixture를 사용했다. Dashboard Sidebar→Reading Room, link6 Reading+한글 감상 저장/Saved/reload, 실제 HTTP 경합→409 비교→명시적 내 초안 저장을 확인했다. Readable6은 원본 viewer 본문을 렌더했고 Back to Reading Room은 같은 detail과 감상으로 돌아왔다.
+브라우저 검토자는 실제 제품의 dev/prod 모두 innerWidth1280×720(content scrollWidth1265) desktop과 390×844 iframe에서 실제 계정과 이번 fixture를 사용했다. Dashboard Sidebar→Reading Room, link6 Reading+한글 감상 저장/Saved/reload, 실제 HTTP 경합→409 비교→명시적 내 초안 저장을 확인했다. Readable6은 원본 viewer 본문을 렌더했고 Back to Reading Room은 같은 detail과 감상으로 돌아왔다.
 
 known-index Back은 Keep editing에서 초안을 유지하고 다시 Back→Discard에서 목록으로 돌아갔다. unknown-index는 `/__review/navigation`의 실제 Next Link로 detail6에 직접 진입해 검증했다. Back→Keep은 현재 detail을 보존하고 별도 새 진입의 Back→Discard는 검토 페이지로 돌아갔다. 이는 DOM history 주입 테스트가 아니다.
 
@@ -56,7 +56,7 @@ runtime.env와 fixtures.json의 0600 권한을 확인했다. 의존성 기존 pe
 
 ## Production 브라우저 판정
 
-원본 Logout→실제 Login→기본 `/reading-room` 진입이 통과했다. 새 링크41의 저장된 한글 감상과 보존 버튼도 유지됐다. [대표 화면](../../screenshot.jpg)은 production의 실제 viewport 1280×720(content scrollWidth 1265), [모바일 감상](../../screenshots/actual/mobile-note.jpg)은 production 390×844 iframe이다. 앞선 prototype/dev 관찰의1269px 기록과 이 최종 viewport를 구분한다.
+원본 Logout→실제 Login→기본 `/reading-room` 진입이 통과했다. 새 링크41의 저장된 한글 감상과 보존 버튼도 유지됐다. [대표 화면](../../screenshot.jpg)은 production의 실제 viewport 1280×720(content scrollWidth 1265), [모바일 감상](../../screenshots/actual/mobile-note.jpg)은 production 390×844 iframe이다. 앞선 prototype 관찰의1269px 기록과 실제 제품의 viewport를 구분한다.
 
 production 확인 이후 새로운 console warning/error는 0이었다. 다만 검토자는 이전 개발 서버에서 원본 Readable viewer의 중첩 button hydration error 2개를 관찰했다. baseline952ac454의 `TextStyleDropdown.tsx:81`은 DropdownMenuTrigger 안에 Button을 넣으면서 asChild를 지정하지 않았다. 이번 viewer 접점에서 발견한 기존 오류로 분류하고 Trigger에 asChild 한 속성을 추가했다. 새 Reading Room page 오류로 기록하지 않는다. 수정 후 production 재빌드와 실제 viewer 재확인도 통과했다.
 
