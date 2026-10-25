@@ -78,7 +78,7 @@ const TextStyleDropdown = (props: Props) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <i className="bi-type text-xl text-neutral" />
         </Button>
