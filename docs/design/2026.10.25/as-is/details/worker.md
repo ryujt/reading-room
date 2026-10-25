@@ -611,7 +611,7 @@ Connected.callback --> clientSocket.pipe
 | Proxy.resolvePinnedAddress / SSRF resolver | `apps/worker/lib/ssrfProxy.ts:26`, `:27` | 첫 검증 IP 반환:28. 허용 host 이름으로 다시 DNS 연결하지 않음 |
 | net.connect 등록 callback | `apps/worker/lib/ssrfProxy.ts:65–71` | resolvePinnedAddress.then의 실제 익명 callback이 net.connect:66을 호출. 위 도표는 callback의 직접 child 호출을 표시; DNS helper가 net.connect를 호출하는 뜻이 아님 |
 | Connected.callback | `apps/worker/lib/ssrfProxy.ts:66` | client에200:67, head있으면 server.write:68, 양방향pipe:69–70 |
-| socket 오류·닫기 callback | `apps/worker/lib/ssrfProxy.ts:60`, `:73–76` | connect timeout15초→server.destroy, error/close는 상대 socket destroy. resolver/callback throw catch:78은403write/end. Node socket API에서 중단 |
+| socket 오류·닫기 callback | `apps/worker/lib/ssrfProxy.ts:60`, `:73–76` | connect timeout15초→server.destroy, error/close는 상대 socket destroy. resolver/callback throw catch:78은 403 write/destroy. Node socket API에서 중단 |
 
 **HTTP 요청 실행**: URL parsing 실패나 비http이면400으로 끝낸다:88–96. 정상 HTTP와 주소 검증 성공에 한해 :99의 then callback이 http.request:101을 호출한다. `HttpResolved.callback`(:100–124), `ProxyResponse.callback`(:112–115)은 익명 함수 식별용 별칭이며 원문 이름이 아니다.
 

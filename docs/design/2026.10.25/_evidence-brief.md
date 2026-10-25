@@ -1,7 +1,7 @@
 # 근거 브리프 — 2026.10.25 AS-IS 역추출
 
 > 이 문서는 원본을 찾는 색인이다. 요약으로 원본 검증을 대신하지 않는다.
-> **상태**: 대표 작성 방식 검토 후 전체 AS-IS 후보를 작성했다. 전체 의미 게이트 판정 전이며 TO-BE·프로토타입·구현은 시작하지 않았다.
+> **상태**: 전체 AS-IS 소스 분석 게이트 통과. 독립 Critic의 의미·범위 검토와 부모의 source·렌더 검토를 완료했다. 이 단계에는 TO-BE·프로토타입·제품 구현이 없다.
 
 ## 1. 기준선
 
@@ -112,12 +112,12 @@ A-03은 할당하지 않았으며 기존 ID를 연속 번호로 만들려고 재
 | Layout 임의 비율 | 실제 flex 배치를 30/40/30 구현 비율로 오해할 수 있음 | 46c09f5 | 모든 Layout에 가중치 출처와 실제 CSS 근거 구분. Announcement fixed overlay도 본문 트리에서 분리 | 새 guide 적용 및 독립 Critic 검토 통과; 부모 렌더 확인 대기 | TO-BE 보류 |
 | verify bridge·tag·collections landing | 메일 내부 route와 tag 탐색 누락, 관리 landing 제외 불명확 | 기존 전수 범위 기준 적용 | Verify Layout/JobFlow/Nav, tag metadata와 legacy query, collections 관리 landing 제외 판정 | 독립 Critic의 최종 의미·범위 검토 통과 | TO-BE 보류 |
 | Worker 형식별 확장 | Readable 외 Preview/Capture/Monolith/직접 파일 처리 필요 | 기존 내부 추적 기준 적용 | Worker JF-2~6.2, sanitizer/proxy/익명 callback 수명 | 함수명·경로·반환·옵션 의미 수정 후 독립 Critic 통과; 부모 검토와 합산 예정 | TO-BE 보류 |
-| 전체 후보 | 상위 노드별 실제 진입과 범위 전수 대조 필요 | f2c22e0 전체 게이트 | 18개 시나리오, 20개 Layout, 경계·구성 상세와 source audit | 독립 Critic의 source 의미·범위 검토 통과, 열린 필수 지적 0건. 부모의 최종 게이트 대기 | 아직 AS-IS 확정 아님 |
+| 전체 후보 | 상위 노드별 실제 진입과 범위 전수 대조 필요 | f2c22e0 전체 게이트 | 18개 시나리오, 20개 Layout, 경계·구성 상세와 source audit | 독립 Critic 의미·범위 통과, 부모 source·전체 렌더 게이트 통과. 열린 필수 지적 0건 | AS-IS 확정, TO-BE 진행 허용 |
 
 대표 샘플을 통과해도 작성 방식 확인일 뿐이다. 이후 모든 시나리오·화면·구성 문서와 의미 검토가 끝나야 AS-IS 확정이다. TO-BE/프로토타입/구현은 시작하지 않았다.
 
 ## 7. 한계
 
-현재 전체 후보는 소스 분석 결과이며 전체 의미 게이트가 남아 있다. 서비스·보존 결과·권한을 실제 HTTP로 확인하지 않았으며, 이전 실행 결과를 이번 작업의 증거로 사용하지 않는다. TO-BE, frontend prototype, 제품 구현은 AS-IS 게이트 뒤 별도 단계다.
+전체 AS-IS는 소스 분석 결과로 확정됐으며 실제 서비스 검증은 이후 구현 단계에 남아 있다. 서비스·보존 결과·권한을 실제 HTTP로 확인하지 않았으며, 이전 실행 결과를 이번 작업의 증거로 사용하지 않는다. TO-BE, frontend prototype, 제품 구현은 별도 단계다.
 
-최종 Critic 보고: source AS-IS 의미·범위 검토 통과, 열린 필수 지적 0건. 이는 부모의 최종 게이트 및 서비스 실행 검증과 구분한다. 전체 확정 전까지 TO-BE는 보류한다.
+최종 게이트: 독립 Critic의 source 의미·범위 통과 및 부모의 전체 검토 통과. 부모는 DATE 65개 파일·167개 JobFlow·748개 링크 FAIL 0/WARN 0, UI 37개 파일·Layout 29블록·Navigation 19블록/133edges의 변환·트리 검사 PASS를 보고했다. Worker 형식/Monolith/proxy와 Browser 추가 대표 PNG 12장을 열어 잘림·겹침 없음을 확인했다. 마지막 socket 문구를 실제 write/destroy로 수정한 뒤 전체 gate를 확정했다. 증거는 작업 공간의 `work/two-project-rebuild/reading-final` 및 `reading-final-ui`에 있으며 제품 픽셀 확인이 아니다. 사용자 직접 승인이 아닌 위임받은 개발자 검토다. AS-IS 단계 commit/push 후 TO-BE 진행을 허용받았다.
