@@ -15,7 +15,7 @@ const nextConfig = {
 
     minimumCacheTTL: 10,
   },
-  transpilePackages: ["@linkwarden/prisma"],
+  transpilePackages: ["@linkwarden/prisma", "@linkwarden/reading-room-ui"],
   env: {
     version,
   },

@@ -1,5 +1,6 @@
 import React, { ReactElement, ReactNode, useEffect } from "react";
 import "@/styles/globals.css";
+import "@linkwarden/reading-room-ui/styles.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";

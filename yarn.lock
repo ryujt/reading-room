@@ -6254,6 +6254,7 @@ __metadata:
     "@linkwarden/filesystem": "npm:*"
     "@linkwarden/lib": "npm:*"
     "@linkwarden/prisma": "npm:*"
+    "@linkwarden/reading-room-ui": "workspace:*"
     "@linkwarden/router": "npm:*"
     "@linkwarden/types": "npm:*"
     "@phosphor-icons/core": "npm:^2.1.1"

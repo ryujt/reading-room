@@ -48,6 +48,8 @@ if (command === "init") {
   fs.writeFileSync(envFile, Object.entries(values).map(([key, value]) => `${key}=${JSON.stringify(value)}`).join("\n") + "\n", { mode: 0o600, flag: "wx" });
   run("docker", ["run", "-d", "--name", container, "--label", "org.reading-room.rebuild=r2", "-p", "127.0.0.1:54721:5432", "-e", "POSTGRES_USER=reading_room", "-e", "POSTGRES_DB=reading_room", "-e", "POSTGRES_PASSWORD", "-v", `${volume}:/var/lib/postgresql/data`, "postgres:16-alpine"], { ...baseEnvironment, POSTGRES_PASSWORD: password });
   console.log(`Private runtime created: ${envFile} (0600). Database: 127.0.0.1:54721.`);
+} else if (command === "native") {
+  run(path.join(repo, "node_modules/.bin/node-pre-gyp"), ["install", "--fallback-to-build"], baseEnvironment, { cwd: path.join(repo, "node_modules/bcrypt") });
 } else if (command === "db-start" || command === "db-stop") {
   assertOwnContainer(); run("docker", [command === "db-start" ? "start" : "stop", container]);
 } else {
@@ -60,9 +62,9 @@ if (command === "init") {
     start: ["workspace", "@linkwarden/web", "start", "-H", "127.0.0.1", "-p", "4721"],
     worker: ["workspace", "@linkwarden/worker", "exec", "tsx", "worker.ts"],
   };
-  if (!commands[command]) throw new Error("Usage: node scripts/reading-room.mjs init|db-start|db-stop|generate|migrate|dev|build|start|worker");
+  if (!commands[command]) throw new Error("Usage: node scripts/reading-room.mjs init|native|db-start|db-stop|generate|migrate|dev|build|start|worker");
   env.PATH = path.join(home, "bin") + path.delimiter + env.PATH;
   const child = spawn("corepack", ["yarn", ...commands[command]], { cwd: repo, env, stdio: "inherit", detached: process.platform !== "win32" });
-  for (const signal of ["SIGINT", "SIGTERM"]) process.on(signal, () => { if (process.platform === "win32") child.kill(signal); else process.kill(-child.pid, signal); });
+  for (const signal of ["SIGINT", "SIGTERM"]) process.on(signal, () => { if (process.platform === "win32") child.kill(signal); else { try { process.kill(-child.pid, signal); } catch (error) { if (error.code !== "ESRCH") throw error; } } });
   child.on("exit", code => process.exit(code ?? 1));
 }

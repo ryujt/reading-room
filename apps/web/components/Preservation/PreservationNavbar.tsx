@@ -3,6 +3,7 @@ import {
   CollectionIncludingMembersAndLinkCount,
   LinkIncludingShortenedCollectionAndTags,
 } from "@linkwarden/types/global";
+import { readingReturnTo } from "@/lib/reading-room/returnTo";
 import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
@@ -57,6 +58,7 @@ const PreservationNavbar = ({ link, format, className }: Props) => {
 
   const { t } = useTranslation();
   const router = useRouter();
+  const returnTo = readingReturnTo(router.query.returnTo);
   const isMonolithConfigPending =
     format === ArchivedFormat.monolith && isConfigLoading && !config;
 
@@ -115,7 +117,7 @@ const PreservationNavbar = ({ link, format, className }: Props) => {
       >
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" asChild>
-            <Link href={`/dashboard`}>
+            <Link href={returnTo || "/dashboard"} aria-label={returnTo ? "Back to Reading Room" : "Back to dashboard"}>
               <i className="bi-chevron-left text-lg text-neutral" />
             </Link>
           </Button>

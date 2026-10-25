@@ -127,6 +127,13 @@ export default function Sidebar({
         const navLinks = (
           <div className={cn("flex flex-col gap-2", collapsed && "gap-3")}>
             <SidebarHighlightLink
+              title="Reading Room"
+              href="/reading-room"
+              icon="bi-book"
+              active={active.startsWith("/reading-room")}
+              sidebarIsCollapsed={collapsed}
+            />
+            <SidebarHighlightLink
               title={t("dashboard")}
               href={`/dashboard`}
               icon={"bi-house"}

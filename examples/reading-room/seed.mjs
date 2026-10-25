@@ -40,7 +40,7 @@ const articles = [
   ["https://www.w3.org/Provider/Style/URI.html", "Cool URIs don’t change", "The lasting value of an address that continues to work."],
   ["https://paulgraham.com/read.html", "The Need to Read", "An essay to return to when deciding what deserves your attention."],
   ["https://www.w3.org/DesignIssues/Principles.html", "Principles of Design", "Design choices behind an open, connected web."],
-  ["https://paulgraham.com/greatwork.html", "Keep Your Identity Small", "A short essay for a slower, more thoughtful reading session."],
+  ["https://paulgraham.com/greatwork.html", "How to Do Great Work", "Finding a question worth staying with."],
   ["https://www.w3.org/People/Berners-Lee/ShortHistory.html", "A Little History of the World Wide Web", "다시 읽고 싶은 웹의 시작 — 연결의 역사를 천천히 살펴보기."],
   ["https://www.w3.org/DesignIssues/LinkedData.html", "Linked Data", "Connecting useful information while keeping room for context."],
 ];

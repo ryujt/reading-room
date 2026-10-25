@@ -52,6 +52,8 @@ export default function AuthRedirect({ children }: Props) {
       { path: "/", isProtected: false },
       { path: "/subscribe", isProtected: true },
       { path: "/dashboard", isProtected: true },
+      { path: "/reading-room", isProtected: true },
+      { path: "/__review", isProtected: true },
       { path: "/settings", isProtected: true },
       { path: "/collections", isProtected: true },
       { path: "/links", isProtected: true },
@@ -72,7 +74,7 @@ export default function AuthRedirect({ children }: Props) {
         isLoggedIn &&
         !routes.some((e) => router.pathname.startsWith(e.path) && e.isProtected)
       ) {
-        redirectTo("/dashboard");
+        redirectTo("/reading-room");
       } else if (
         isUnauthenticated &&
         routes.some((e) => router.pathname.startsWith(e.path) && e.isProtected)

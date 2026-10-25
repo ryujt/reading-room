@@ -105,3 +105,8 @@ export function readingLocationURL(location: ReadingLocation, pathname: string) 
   return pathname + (params.size ? `?${params}` : "");
 }
 export function availableFormat(path: string | null) { return Boolean(path && path !== "unavailable"); }
+
+/** Stored/imported links are untrusted too; original-file uploads may have no URL. */
+export function sourceArticleURL(value: string): string | null {
+  try { const url = new URL(value); return ["http:", "https:"].includes(url.protocol) ? url.href : null; } catch { return null; }
+}
