@@ -45,6 +45,7 @@ model User {
   createdLinks            Link[]                @relation("CreatedLinks")
   createdCollections      Collection[]          @relation("CreatedCollections")
   highlights              Highlight[]
+  readingProgress         ReadingProgress[]
   collectionsJoined       UsersAndCollections[]
   collectionOrder         Int[]                 @default([])
   whitelistedUsers        WhitelistedUser[]
@@ -171,6 +172,7 @@ model Link {
   type            String      @default("url")
   description     String      @default("")
   highlight       Highlight[]
+  readingProgress ReadingProgress[]
   pinnedBy        User[]      @relation("PinnedLinks")
   createdBy       User?       @relation("CreatedLinks", fields: [createdById], references: [id], onDelete: Cascade)
   createdById     Int?
@@ -197,6 +199,27 @@ model Link {
   updatedAt       DateTime    @default(now()) @updatedAt
 
   @@index([collectionId])
+}
+
+enum ReadingStatus {
+  UNREAD
+  READING
+  FINISHED
+}
+
+model ReadingProgress {
+  userId     Int
+  linkId     Int
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  link       Link          @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  status     ReadingStatus @default(UNREAD)
+  reflection String        @default("")
+  version    Int           @default(1)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@id([userId, linkId])
+  @@index([userId, status])
 }
 
 model Tag {

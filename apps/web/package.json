@@ -27,6 +27,7 @@
     "@linkwarden/filesystem": "*",
     "@linkwarden/lib": "*",
     "@linkwarden/prisma": "*",
+    "@linkwarden/reading-room-ui": "workspace:*",
     "@linkwarden/router": "*",
     "@linkwarden/types": "*",
     "@phosphor-icons/core": "^2.1.1",

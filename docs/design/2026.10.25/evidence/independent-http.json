@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-25T14:51:52.977Z",
+  "baseUrl": "http://127.0.0.1:4721",
+  "scope": "real HTTP, isolated demo fixtures; no browser or database assertion implied",
+  "results": [
+    {
+      "name": "unauthenticated library is rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "read-only member can save only their own personal record",
+      "result": "PASS"
+    },
+    {
+      "name": "outsider cannot read or write shared private records",
+      "result": "PASS"
+    },
+    {
+      "name": "public-only access does not grant a personal library record",
+      "result": "PASS"
+    },
+    {
+      "name": "actor spoofing in the body is rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "different stale payload conflicts; same current payload confirms without a write",
+      "result": "PASS"
+    },
+    {
+      "name": "Int32-overflow id, cursor and version are input errors",
+      "result": "PASS"
+    },
+    {
+      "name": "list totals and status-filter results are coherent",
+      "result": "PASS"
+    },
+    {
+      "name": "public collection and link outputs exclude a real saved personal reflection",
+      "result": "PASS"
+    },
+    {
+      "name": "restore public fixture personal value",
+      "result": "PASS"
+    },
+    {
+      "name": "restore owner fixture value",
+      "result": "PASS"
+    },
+    {
+      "name": "restore member fixture value",
+      "result": "PASS"
+    }
+  ]
+}

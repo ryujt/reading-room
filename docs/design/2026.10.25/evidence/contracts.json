@@ -1,0 +1,67 @@
+{
+  "scope": "Actual Next HTTP and PostgreSQL; no browser or worker claim",
+  "results": [
+    {
+      "name": "V-01 no authentication, private cache, absent row defaults",
+      "result": "PASS"
+    },
+    {
+      "name": "V-01 read-only member writes own row without changing owner or shared Link",
+      "result": "PASS"
+    },
+    {
+      "name": "V-01 public-only outsider cannot read or write personal state",
+      "result": "PASS"
+    },
+    {
+      "name": "V-04 input ownership, one-line limit and Int32 boundaries",
+      "result": "PASS"
+    },
+    {
+      "name": "V-02 concurrent first writes produce one row and one conflict",
+      "result": "PASS"
+    },
+    {
+      "name": "V-02 identical concurrent first payload confirms the same value",
+      "result": "PASS"
+    },
+    {
+      "name": "V-01 revoke hides prior row; regrant restores only that user's value",
+      "result": "PASS"
+    },
+    {
+      "name": "V-04 original shared/public endpoints exclude real personal values",
+      "result": "PASS"
+    },
+    {
+      "name": "V-03 30-row cursor pages, global counts and status filter semantics",
+      "result": "PASS"
+    },
+    {
+      "name": "V-03 list/count snapshot remains coherent during concurrent writes",
+      "result": "PASS"
+    },
+    {
+      "name": "V-02 version exhaustion refuses change but confirms an identical value",
+      "result": "PASS"
+    },
+    {
+      "name": "V-01 original Link deletion cascades personal rows",
+      "result": "PASS"
+    },
+    {
+      "name": "V-01 original User deletion cascades its personal rows",
+      "result": "PASS"
+    }
+  ],
+  "cleanup": [
+    {
+      "collectionId": 3,
+      "status": 200
+    },
+    {
+      "remainingProbeRows": 0
+    }
+  ],
+  "at": "2026-10-25T14:50:29.625Z"
+}
