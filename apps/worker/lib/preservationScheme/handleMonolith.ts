@@ -51,6 +51,14 @@ export default async function handleMonolith(
         : process.env,
     });
 
+    // A child that exits or is aborted before consuming HTML can close stdin.
+    // Handle the pipe error here so one failed archive cannot terminate the worker.
+    let inputFailed = false;
+    child.stdin.on("error", (error) => {
+      inputFailed = true;
+      child.kill("SIGKILL");
+      reject(error);
+    });
     child.stdin.write(pageContent);
     child.stdin.end();
 
@@ -62,7 +70,8 @@ export default async function handleMonolith(
     });
 
     child.on("close", async (code) => {
-      if (code !== 0 && code !== null) {
+      if (inputFailed) return;
+      if (code !== 0) {
         return reject(new Error(`Monolith exited with code ${code}`));
       }
 
