@@ -1,0 +1,24 @@
+# 재설정 메일 요청 — TO-BE 유지 Navigation
+
+> **목표 기준** 2026.10.25 · **AS-IS 대비** 유지. [이번 기준선 원본](../../../as-is/details/navigation/request-reset.md)의 도표와 내부 계약을 목표에서도 유지한다. 아래 코드는 upstream 952ac454의 확인된 근거이며 목표 실행을 검증했다는 뜻이 아니다. [목표 핵심](../../system-design-to-be.md) C-05의 회귀 검증 대상이다.
+
+> **DATE** 2026.10.25 · **기준** `952ac454` 소스 역추출. 실제 브라우저 관찰 전.
+> [Job Flow](../jobflow/request-reset.md) · [핵심 화면](../../system-design-to-be.md#7-화면--사용자는-어디를-오가나)
+
+진입: Login의 Forgot 링크 또는 `/forgot` 직접 진입.
+
+```navigation
+Forgot --> (/request_reset) : 유효 이메일 제출
+(/request_reset) --> ForgotSent : 200 안내
+(/request_reset) --> Forgot : API 오류
+Forgot --> Login : 돌아가기
+ForgotSent --> Login : 돌아가기
+```
+
+| 화면·판단 | 주소·소유·Layout | 실제 근거·계약 |
+|---|---|---|
+| Forgot/ForgotSent | `/forgot`의 isEmailSent 변형, [Layout](../layout/forgot.md) | forgot.tsx:24–59/:62–99 |
+| Login | `/login`, [Layout](../layout/login.md) | 명시적 Link |
+| request_reset | POST `/api/v1/auth/forgot-password` | [API JF-4](../../../as-is/details/web-api.md#jf-4-비밀번호-재설정-요청과-실제-발송--forgotpassword--sendpasswordresetrequest) |
+
+메일의 링크를 누르는 것은 다른 시나리오의 직접 URL 진입이다. UI sent 상태는 SMTP 전달 성공의 증거가 아니다. 새로고침 시 isEmailSent와 email draft는 초기화된다.

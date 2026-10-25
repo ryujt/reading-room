@@ -11,7 +11,7 @@
 | 소스 기준 커밋 | `952ac4540657cae3a67c3ca59433899d2fda8374` |
 | 원본 맥락 | 2026-09-09T20:12:04-04:00, upstream Linkwarden PR #1834 병합 |
 | 저장소 | `linkwarden/linkwarden`의 새 포크 `ryujt/reading-room` |
-| 작업 트리 | 조사 시작 시 clean. 초기 기준선 d62c9b7e는 분석 문서만 추가했다. 현재는 전체 AS-IS 문서 후보를 검토 중이다. |
+| 작업 트리 | 조사 시작 시 clean. 초기 기준선 d62c9b7e는 분석 문서만 추가했다. 전체 AS-IS는 21001b7c와 4703808c로 확정·push했다. 애플리케이션 소스는 변경하지 않았다. |
 | 관찰 방법 | 새 checkout 소스 본문, 선언과 호출 위치, Prisma schema, manifest와 yarn.lock 대조 |
 | 실행 구분 | 서비스·DB·브라우저는 아직 실행하지 않았다. 런타임 서술은 코드상 예상이다. |
 | 가이드 기준 | project-guides `c56f4909e3b6626e85f51bfa3a2fbce987a8c878`에서 시작. 게이트 f2c22e0, 반례 수정 f30e11b, 익명 함수 식별 62cc50b, Layout 크기 근거 구분 46c09f5까지 적용 |
@@ -114,10 +114,37 @@ A-03은 할당하지 않았으며 기존 ID를 연속 번호로 만들려고 재
 | Worker 형식별 확장 | Readable 외 Preview/Capture/Monolith/직접 파일 처리 필요 | 기존 내부 추적 기준 적용 | Worker JF-2~6.2, sanitizer/proxy/익명 callback 수명 | 함수명·경로·반환·옵션 의미 수정 후 독립 Critic 통과; 부모 검토와 합산 예정 | TO-BE 보류 |
 | 전체 후보 | 상위 노드별 실제 진입과 범위 전수 대조 필요 | f2c22e0 전체 게이트 | 18개 시나리오, 20개 Layout, 경계·구성 상세와 source audit | 독립 Critic 의미·범위 통과, 부모 source·전체 렌더 게이트 통과. 열린 필수 지적 0건 | AS-IS 확정, TO-BE 진행 허용 |
 
-대표 샘플을 통과해도 작성 방식 확인일 뿐이다. 이후 모든 시나리오·화면·구성 문서와 의미 검토가 끝나야 AS-IS 확정이다. TO-BE/프로토타입/구현은 시작하지 않았다.
+대표 샘플을 통과해도 작성 방식 확인일 뿐이다. 이후 모든 시나리오·화면·구성 문서와 의미 검토가 끝나야 AS-IS 확정이다. 이 AS-IS 게이트 시점에는 TO-BE·프로토타입·구현을 시작하지 않았다. 이후 TO-BE 기록은 아래 별도 절에 둔다.
 
 ## 7. 한계
 
 전체 AS-IS는 소스 분석 결과로 확정됐으며 실제 서비스 검증은 이후 구현 단계에 남아 있다. 서비스·보존 결과·권한을 실제 HTTP로 확인하지 않았으며, 이전 실행 결과를 이번 작업의 증거로 사용하지 않는다. TO-BE, frontend prototype, 제품 구현은 별도 단계다.
 
 최종 게이트: 독립 Critic의 source 의미·범위 통과 및 부모의 전체 검토 통과. 부모는 DATE 65개 파일·167개 JobFlow·748개 링크 FAIL 0/WARN 0, UI 37개 파일·Layout 29블록·Navigation 19블록/133edges의 변환·트리 검사 PASS를 보고했다. Worker 형식/Monolith/proxy와 Browser 추가 대표 PNG 12장을 열어 잘림·겹침 없음을 확인했다. 마지막 socket 문구를 실제 write/destroy로 수정한 뒤 전체 gate를 확정했다. 증거는 작업 공간의 `work/two-project-rebuild/reading-final` 및 `reading-final-ui`에 있으며 제품 픽셀 확인이 아니다. 사용자 직접 승인이 아닌 위임받은 개발자 검토다. AS-IS 단계 commit/push 후 TO-BE 진행을 허용받았다.
+
+## 8. TO-BE 입력과 검토 기록
+
+[목표 핵심](to-be/system-design-to-be.md)은 기존 시스템 개선 설계다. 입력 소스는 fresh upstream952ac454이고 AS-IS 확정은21001b7c/4703808c다. guide46c09f5의 규칙으로 새 경계의 내부 협력을 제안하며 유지 시나리오/화면도 각 목표 문서를 작성했다. 새 구현·서비스·DB는 아직 없다.
+
+| 문서 | 현재 SHA-256 |
+|---|---|
+| `prompts/system-design-to-be-prompt.md` | `4e9c47cabae9181e9df182420cc03fca36aff2cf6454071f0f5d8164bd2ec417` |
+| `prompts/frontend-prototype-prompt.md` | `11e2534a760ef79e4fd401e5038bbfeda4840e668216f122b583b6d20c6e26e1` |
+| `guides/system-design-document-guide.md` | `78dde3389b2c71e9d5f7e7c0f2c81bee937b8e7b531324b8fde4f06a4c1c04cc` |
+
+| 요구·검토 ID | 지적·반례 | 변경 | 결과·시점 |
+|---|---|---|---|
+| 부모 상위 방향 검토 | 다중 count의 snapshot·stale 동일payload·dirty목적지·실제읽기 구분 | RepeatableRead,현재값확인200,filter/Back/detail guard,format UX | 상위 방향 수용,전체후보 검토 전 |
+| R-TB-1 독립 Critic | Next 같은 document의 legacy history는beforeunload가막지않음 | known-index보상과unknownbeforePopState fallback분리 | Critic 반례 해소 확인,실제router검증 예정 |
+| R-TBP-1 부모 | getReading 바깥함수와transaction callback호출혼합 | readSingleSnapshot 등록/실행 그림 분리 | 부모 반례 해소 확인 |
+| R-TBP-2 부모 | safe integer만으로PrismaInt범위초과방지안됨 | Int32 id/cursor/version검증,version상한변경거절 | 부모 반례 해소 확인 |
+| R-TB-2 독립 Critic | viewer Back의 항상Dashboard 문장과 hint 없는link 분기 불일치 | 원본fallback/유효link/유효library복귀를구분하고새진입dirtyguard 연결 | 독립 Critic 반례 해소 확인 |
+| C-03 선택지 추적 | 새Save에서collection정보출처 필요 | getCollections L0→loadCollections→원본API추적 | 작성자 보강,전체 후보 독립 검토에 포함 |
+
+부모의 API/Int32/도표 재검토와 독립 Critic의 최종409 code 구분 검토를 모두 통과했다. 열린 필수 지적은0건이며 전체 TO-BE 설계 게이트를 확정한다. 이는 사용자에게 위임받은 개발자 판단이고 runtime 성공이나 사용자 직접 승인이 아니다. 이 문서 단계 commit/push 후 frontend-only prototype으로 진행한다. 검토는 위임받은 개발자 판단이며 사용자 직접 승인으로 표현하지 않는다.
+
+최종 후보 정적 검사: `design-doc-check.mjs --strict docs/design/2026.10.25/to-be`에서74개 파일·57개 JobFlow·790개 링크 FAIL0/WARN0. 별도 Markdown 표 검사에서도 열 수 불일치/중간 분리0건을 확인했다. 부모는 SVG 전체 변환과 API/Browser 대표10장 시각 검토, UI45개 파일의34개 Layout·23개 Navigation/173edges 변환·트리 검사를 통과시켰다고 보고했다. 근거 위치는 작업공간의 `work/two-project-rebuild/reading-tobe-final`과 `reading-tobe-final-ui`다. UI 픽셀이나 제품 runtime 검증은 아니다.
+
+| 추가 지적 | 조치 | 판정 |
+|---|---|---|
+| R-TB-3 독립 Critic: 모든409를conflict로소비할수있음 | READING_CONFLICT+current만비교UI, VERSION_EXHAUSTED는초안유지·저장불가안내 | 독립 Critic 최종 확인 통과 |
