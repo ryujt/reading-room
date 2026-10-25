@@ -39,7 +39,7 @@
 
 `reading={status,reflection,version,updatedAt}`이며 row가 없으면 `{UNREAD,"",0,null}`이다. version은 저장 버전이며 실제로 읽은 시간·분량을 증명하지 않는다. reflection은 앞뒤 공백 trim 후 JavaScript UTF-16 code unit 280자 이하, CR/LF 불허, 빈 문자열 허용이다. UI의 maxLength와 서버 검증 단위를 맞춘다. Prisma Int에 맞춰 id/cursor는 1..2147483647, expectedVersion은 0..2147483647의 정수만 받으며 범위 밖은400이다. version이 상한에 도달한 row의 변경 쓰기는409 `VERSION_EXHAUSTED`로 거절하여 overflow를 만들지 않는다. 동일 payload 확인은 쓰기 없이200이다.
 
-counts는 **검색어·선택 shelf와 무관한 현재 사용자의 전체 접근 가능 library**에 대한 all/unread/reading/finished 값이다. page는 query와 status를 적용한다. 같은 요청의 page·counts만 동일 snapshot이고 서로 다른 페이지 요청 간 snapshot 고정은 보장하지 않는다. cursor는 마지막 표시 id이며 `id < cursor`를 적용한다. 새 링크가 들어오면 첫 페이지 새로고침에서 보이고, 접근 회수·삭제로 뒤 페이지가 짧아질 수 있다. 클라이언트는 id로 중복 제거한다. 정렬 선택 UI는 제공하지 않는다.
+counts는 **검색어·선택 shelf와 무관한 현재 사용자의 전체 접근 가능 library**에 대한 `{ALL, UNREAD, READING, FINISHED}` 값이다. 이 표기는 실제 JSON 키이며 대문자를 사용한다. page는 query와 status를 적용한다. 같은 요청의 page·counts만 동일 snapshot이고 서로 다른 페이지 요청 간 snapshot 고정은 보장하지 않는다. cursor는 마지막 표시 id이며 `id < cursor`를 적용한다. 새 링크가 들어오면 첫 페이지 새로고침에서 보이고, 접근 회수·삭제로 뒤 페이지가 짧아질 수 있다. 클라이언트는 id로 중복 제거한다. 정렬 선택 UI는 제공하지 않는다.
 
 ## 3. 내부 Job Flow — 드릴다운
 

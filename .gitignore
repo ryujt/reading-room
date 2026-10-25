@@ -57,3 +57,4 @@ prisma/dev.db
 .turbo
 
 service-account-file.json
+/apps/reading-room-prototype/dist/

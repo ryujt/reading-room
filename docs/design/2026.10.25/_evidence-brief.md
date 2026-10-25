@@ -148,3 +148,9 @@ A-03은 할당하지 않았으며 기존 ID를 연속 번호로 만들려고 재
 | 추가 지적 | 조치 | 판정 |
 |---|---|---|
 | R-TB-3 독립 Critic: 모든409를conflict로소비할수있음 | READING_CONFLICT+current만비교UI, VERSION_EXHAUSTED는초안유지·저장불가안내 | 독립 Critic 최종 확인 통과 |
+
+## 9. 프론트엔드 프로토타입
+
+TO-BE `f99c0447` 이후 독립 React/Vite entry와 공유 UI를 작성했다. [검토 대응표와 결정](prototype.md)에 실제 함수·R-P-1~6·CUA 관찰·화면 캡처를 연결했다. TypeScript/build, Vitest/jsdom10개, source/bundle/CSP audit를 통과했다. 최초 빌드 성공 뒤 실제 브라우저에서 발생한 React undefined는 workspace JSX automatic 변환으로 고쳤으며, 이를 R-P-4로 보존했다.
+
+독립 Critic은 상태·수명·fake 경계를 검토하고10개 테스트를 별도 실행했다. 부모는 실제1269×720 desktop과390×844 iframe에서 조작하고, 첫 행의 발견 가능성과 충돌 피드백을 개선한 뒤 디자인 gate를 수용했다. 사용자 직접 승인이 아닌 위임된 개발자 판단이다. 실제 API·DB·인증·보존은 아직 연결하지 않았으며, 이 frontend 단계 commit/push 후 검증 우선 구현으로 진행한다.
